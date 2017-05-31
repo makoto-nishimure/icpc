@@ -7,12 +7,23 @@
 
 #define MAX 800
 
+//depth first search
+//一番遠いノードの番号を返す
+
+int dfs(int sn, int *adm[], ) {
+
+
+
+}
+
 int main(void) {
 
   int i,j,k;
   int adm[MAX][MAX]; //adjacency matrix 隣接行列
 
   std::bitset<MAX> dic;
+  std::bitset<MAX> flag;  //admのnodes通過フラグ
+  
   //start inputs
   int n;  //number of nodes
 
@@ -55,6 +66,17 @@ int main(void) {
   }
   */
 
+  //decide a start node
+  int sn; //start node
+  for(i = 0; i < n-1; i++){
+    if(dic.set(i)) {
+      sn = i;
+      break();
+    }
+  }
+
+  //depth first search を書きたいところで終了
+  
 
   return 0;
 
