@@ -7,31 +7,49 @@
 
 #define MAX 800
 
+std::bitset<MAX> flag;  //admのnodes通過フラグ
+
 //depth first search
 //一番遠いノードの番号を返す
+//n: number of nodes, sn: start node, adm: adjacency matrix, depth: each node's depth, cd: current depth
+void dfs(int n, int sn, int **adm, int *depth, int cd) {
+ 
+  depth[sn] = cd;
+  flag.set(sn);
+  for(int i = 0; i <= n; i++) {
+    if(adm[sn][i]){
+      if(!flag[i]){
+	int tmp = cd + 1;
+	dfs(n, i, adm, depth, tmp);
+      }
+    }
+  }
 
-int dfs(int sn, int *adm[], ) {
-
-
-
+  
 }
 
 int main(void) {
 
   int i,j,k;
-  int adm[MAX][MAX]; //adjacency matrix 隣接行列
-
+  //int adm[MAX][MAX]; //adjacency matrix 隣接行列
+  int **adm;
+  adm = (int **)malloc(sizeof(int *)*MAX);
+    
+  for(i = 0; i < MAX; i++)
+    adm[i] = (int *)malloc(sizeof(int)*MAX);
+  
   std::bitset<MAX> dic;
-  std::bitset<MAX> flag;  //admのnodes通過フラグ
+
   
   //start inputs
   int n;  //number of nodes
 
   std::cin >> n;
-  int *p,*d;
+  int *p,*d,*depth;
   p = (int *)malloc(sizeof(int) * n+1);
   d = (int *)malloc(sizeof(int) * n+1);
-
+  depth = (int *)malloc(sizeof(int) * n+1);
+  
   for(i = 0; i < n-1; i++)
     std::cin >> p[i];
   for(i = 0; i < n-1; i++)
@@ -58,26 +76,73 @@ int main(void) {
   }
 
   //print adm
-  /*n
+  //n
+  /*
   for(i = 0; i < n; i++) {
     for(j = 0; j < n; j++)
-      std::cout << adm[i][j];
+      std::cout << adm[i][j] << " ";
     std::cout << std::endl;
   }
+  std::cout << std::endl;
   */
 
+  
   //decide a start node
   int sn; //start node
+  int en; //end node
+  int eten; //end to end node
   for(i = 0; i < n-1; i++){
-    if(dic.set(i)) {
+    if(dic[i]) {
       sn = i;
-      break();
+      break;
     }
   }
 
-  //depth first search を書きたいところで終了
+  //depth first search (first time)
+  
+  //depth(array) init
+  for(i = 0; i <= n; i++)
+    depth[i] = 0;
+  dfs(n, sn, adm, depth, 0);
+
+  int tmp = 0;
+  for(i = 0; i <= n; i++){
+    if(tmp < depth[i]) {
+      tmp = depth[i];
+      en = i;
+    }
+  }
+  //end dfs(first time)
+  for(int i = 0; i < MAX; i++)
+    flag.reset(i);
+  //for(i = 0; i < n; i++)
+  //std::cout << depth[i];
+  std::cout << en << std::endl;
+
+  //depth first search (second time)
+  
+  //depth(array) init
+  for(i = 0; i <= n; i++)
+    depth[i] = 0;
+  dfs(n, en, adm, depth, 0);
+
+  tmp = 0;
+  for(i = 0; i <= n; i++){
+    if(tmp < depth[i]) {
+      tmp = depth[i];
+      eten = i;
+    }
+  }
+  //end dfs(second time)
+
+  std::cout << eten << std::endl;
+
   
 
+
+
+
+  
   return 0;
 
   
