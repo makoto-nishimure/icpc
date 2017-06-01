@@ -39,17 +39,26 @@ int main(void) {
     adm[i] = (int *)malloc(sizeof(int)*MAX);
   
   std::bitset<MAX> dic;
-
+  
+  int *p,*d,*depth;
+  p = (int *)malloc(sizeof(int) * MAX);
+  d = (int *)malloc(sizeof(int) * MAX);
+  depth = (int *)malloc(sizeof(int) * MAX);
+  //int *root;
+  //root = (int *)malloc(sizeof(int)*MAX);
   
   //start inputs
   int n;  //number of nodes
+  int sn; //start node
+  int en; //end node
+  int eten; //end to end node
+  int tmp;
 
-  std::cin >> n;
-  int *p,*d,*depth;
-  p = (int *)malloc(sizeof(int) * n+1);
-  d = (int *)malloc(sizeof(int) * n+1);
-  depth = (int *)malloc(sizeof(int) * n+1);
+  std::stack<int> root;
+
+
   
+  std::cin >> n;
   for(i = 0; i < n-1; i++)
     std::cin >> p[i];
   for(i = 0; i < n-1; i++)
@@ -88,9 +97,7 @@ int main(void) {
 
   
   //decide a start node
-  int sn; //start node
-  int en; //end node
-  int eten; //end to end node
+ 
   for(i = 0; i < n-1; i++){
     if(dic[i]) {
       sn = i;
@@ -105,7 +112,7 @@ int main(void) {
     depth[i] = 0;
   dfs(n, sn, adm, depth, 0);
 
-  int tmp = 0;
+  tmp = 0;
   for(i = 0; i <= n; i++){
     if(tmp < depth[i]) {
       tmp = depth[i];
@@ -113,7 +120,7 @@ int main(void) {
     }
   }
   //end dfs(first time)
-  for(int i = 0; i < MAX; i++)
+  for(i = 0; i < MAX; i++)
     flag.reset(i);
   //for(i = 0; i < n; i++)
   //std::cout << depth[i];
@@ -137,8 +144,7 @@ int main(void) {
 
   std::cout << eten << std::endl;
 
-  
-
+  //root of from end node to end to end node
 
 
 
