@@ -16,6 +16,9 @@ int main(int argc, char *argv[]) {
 
   vector<vector<int> > length;//(w-1,vector<int>(h));
   vector<vector<int> > width;//(w, vector<int>(h-1));
+
+  stack<pair<int,int>> junc; //junction
+  
   length.resize(h); width.resize(h);
   for(int i = 0; i < h; i++) {
     length[i].resize(w);
@@ -46,7 +49,16 @@ int main(int argc, char *argv[]) {
     cin >> e;
     length[h-1][j] = e;
   }
+
+  junc.push(make_pair(0,0));
+  while(true){
+    pair<int, int> p = junc.top();
     
+
+    
+  }
+
+
   
   return 0;
 }
