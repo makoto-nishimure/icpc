@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int COST;
+
 //pair:p　これから行こうとしている場所
 bool pass(const int w, const int h, const pair<int,int> p, const vector<vector<int> > &length, const vector<vector<int> > &width, const vector<pair<int,int> > &root) {
   
@@ -20,13 +22,14 @@ bool pass(const int w, const int h, const pair<int,int> p, const vector<vector<i
   size_t size = root.size()-1;
   bool flag = true;
   for(int i = 0; i <= size; i++){
-    if((p.first == root[i].first) && (p.second == root[i].second))
-       flag = false;
-       break;
+    if(p == root[i]) {
+      flag = false;
+      break;
+    }
   }
   if(!flag)
     return false;
-
+  
   //壁があるかないか
   pair<int,int> cp = make_pair(root[size].first, root[size].second);
   //縦の壁
@@ -52,22 +55,35 @@ void search(const int w, const int h, const vector<vector<int> > &length, const 
   pair<int,int> p = junc.top();
   pair<int,int> tmp;
   junc.pop();
-  //down
-  tmp = make_pair(p.first+1, p.second);
-  if(pass(w, h, tmp, length, width, root))
+
+    //left
+  tmp = make_pair(p.first, p.second-1);
+  if(pass(w, h, tmp, length, width, root)){
     junc.push(tmp);
-  //right
-  tmp = make_pair(p.first, p.second+1);
-  if(pass(w, h, tmp, length, width, root))
-    junc.push(tmp);
+    cout << "candidate::" << tmp.first << tmp.second << endl;
+  }
+
   //up
   tmp = make_pair(p.first-1, p.second);
-  if(pass(w, h, tmp, length, width, root))
+  if(pass(w, h, tmp, length, width, root)){
     junc.push(tmp);
-  //left
-  tmp = make_pair(p.first, p.second-1);
-  if(pass(w, h, tmp, length, width, root))
+    cout << "candidate::" << tmp.first << tmp.second << endl;
+  }
+
+  //right
+  tmp = make_pair(p.first, p.second+1);
+  if(pass(w, h, tmp, length, width, root)){
     junc.push(tmp);
+    cout << "candidate::" << tmp.first << tmp.second << endl;
+  }
+
+  //down
+  tmp = make_pair(p.first+1, p.second);
+  if(pass(w, h, tmp, length, width, root)){
+    junc.push(tmp);
+    cout << "candidate::" << tmp.first << tmp.second << endl;
+  }
+  
 }
 
 
@@ -75,15 +91,18 @@ void search(const int w, const int h, const vector<vector<int> > &length, const 
 int main(int argc, char *argv[]) {
 
   int h, w;  //height and width of maze
-
   
   cin >> w;
   cin >> h;
 
+  COST = 0;
+  
   vector<vector<int> > length;//(w-1,vector<int>(h));
   vector<vector<int> > width;//(w, vector<int>(h-1));
   
   vector<pair<int,int> > root;
+
+  pair<int,int> goal = make_pair(w-1,h-1);
   
   stack<pair<int,int> > junc; //junction
   
@@ -119,22 +138,28 @@ int main(int argc, char *argv[]) {
   }
 
   junc.push(make_pair(0,0));
-  //while(true){
+  //while(true)
+  for(int j = 0; j < 19; j++){
     //search の方に記述してもいいかも？
-    pair<int, int> p = junc.top();
+  pair<int, int> p = junc.top(); //現在地をとってくる
     
-    cout << "current::" << p.first << p.second << endl;
+  cout << "current::" << p.first << p.second << endl;
 
-    root.push_back(make_pair(p.first, p.second));
-    search(w, h, length, width, root, junc);
-    
-    for(int i = 0; i < junc.size(); i++) {
-      p = junc.top();
-      cout << "current::" << p.first << p.second << endl;
-    }
-    
-    //}
-		   
+  root.push_back(make_pair(p.first, p.second));  //現在地を通った道として記録
+  search(w, h, length, width, root, junc);  //いける分岐を探して、juncに挿入
+
+  if (goal == junc.top()) //合ってるかわからん
+    COST = root.size();
+  /*
+  p = junc.top();
+  cout << "next::" << p.first << p.second << endl;
+  
+  size_t size = root.size();
+  for(int i = 0; i < size; i++)
+    cout << "root::" << root[i].first << root[i].second << endl;
+  */
+}
+  
 
   
   return 0;
