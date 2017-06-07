@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <stdlib.h>
+#include <cstdlib>
+
+
+int main(int argc, char *argv[]) {
+
+  int h, w;  //height and width of maze
+  
+  cin >> w;
+  cin >> h;
+  
+  vector<vector<int> > length;//(w-1,vector<int>(h));
+  vector<vector<int> > width;//(w, vector<int>(h-1));
+  
+  length.resize(h); width.resize(h);
+  for (int i = 0; i < h; i++) {
+    length[i].resize(w);
+    width[i].resize(w);
+    }
+  
+  for (int i = 0; i < h-1; i++) {
+    for (int j = 0; j < w-1; j++) {
+      int e;
+      cin >> e;
+      length[i][j] = e;
+    }
+    for (int j = 0; j < w; j++) {
+      int e;
+      cin >> e;
+      width[i][j] = e;
+    } 
+  }
+  for (int j = 0; j < w-1; j++) {
+    int e;
+    cin >> e;
+    length[h-1][j] = e;
+  }
+}
