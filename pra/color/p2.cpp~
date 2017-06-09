@@ -1,0 +1,33 @@
+#include <iostream>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+  int h, w, c;
+  cin >> h >> w >> c;
+  int **p;
+  p = (int **)malloc(sizeof(int *)*h);
+  for (size_t i = 0; i < h; i++)
+    p[i] = (int *)malloc(sizeof(int)*w);
+  for (size_t i = 0; i < h; i++)
+    for (size_t j = 0; j < w; j++)
+      cin >> p[i][j];
+
+  int **passed;
+  passed = (int **)malloc(sizeof(int *)*h);
+  for (size_t i = 0; i < h; i++)
+    passed[i] = (int *)malloc(sizeof(int)*w);
+  for (size_t i = 0; i < h; i++)
+    for (size_t j = 0; j < w; j++)
+      passed[i][j] = -1;
+  
+  int num;
+  num = ele(h,w,p,passed);
+  //cout << "ele" << num << endl;
+  
+  for (size_t i = 0; i < num; i++) {
+    for (size_t j = 0; j < num; j++) {
+      
+    }
+  }
+}

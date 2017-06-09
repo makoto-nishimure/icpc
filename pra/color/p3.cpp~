@@ -1,0 +1,16 @@
+#include <iostream>
+
+
+
+int main(int argc, char *argv[])
+{
+  int h, w, c;
+  cin >> h >> w >> c;
+  int p[h][h];
+  for (size_t i = 0; i < h; i++)
+    for (size_t j = 0; j < w; j++)
+      cin >> p[i][j];
+
+
+
+}

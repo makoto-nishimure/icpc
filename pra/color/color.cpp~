@@ -1,0 +1,18 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+  int h, w, c;
+  cin >> h >> w >> c;
+  vector<vector<int> >p;
+  p.resize(h);
+  for (size_t i = 0; i < h; i++)
+    p[i].resize(w);
+
+
+
+
+}
