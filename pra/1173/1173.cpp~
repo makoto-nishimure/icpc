@@ -1,0 +1,11 @@
+#include <iostream>
+#include <stack>
+
+int main(void) {
+
+  char *s;
+  cin >> s;
+  cout << s << endl;
+  return 0;
+
+}
