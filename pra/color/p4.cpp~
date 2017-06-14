@@ -1,0 +1,38 @@
+#include <iostream>
+#include <queue>
+#include <utility>
+
+using namespace std;
+
+int rec(const int h, const int w, const int c, int **p, const int times) {
+  
+
+
+
+
+
+
+}
+
+
+
+int main(int argc, char *argv[])
+{
+  int h, w, c;
+  cin >> h >> w >> c;
+  //int p[h][h];
+  int **p;
+  p = (int**)malloc(sizeof(int *)*h);
+  for (size_t i = 0; i < h; i++)
+    p[i] = (int*)malloc(sizeof(int)*w);
+  for (size_t i = 0; i < h; i++)
+    for (size_t j = 0; j < w; j++)
+      cin >> p[i][j];
+
+  int max;
+  max = rec(h,w,c,p,1);
+
+  cout << max << endl;
+  
+  return 0;
+}

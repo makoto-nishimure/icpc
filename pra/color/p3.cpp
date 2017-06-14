@@ -26,12 +26,11 @@ int rec(const int h, const int w, const int c, int **p, const int times) {
   pair<int,int> start,add;
   start = make_pair(0,0);
  
-  int fig = p[0][0];
-
   int max = 0;
   int now;
-  cout << "times::" << times << endl;
+ 
   if (times < 5) {
+    cout << "times::" << times << endl;
     for (size_t i = 1; i <= 6; i++) {
       cout << i << endl;
       
@@ -43,6 +42,8 @@ int rec(const int h, const int w, const int c, int **p, const int times) {
 	
 	pair<int,int> t = q.front(); q.pop();
 	tmp[0][0] = i;
+	int fig = i;
+
 	//up
 	add = make_pair(t.first-1,t.second);
 	if (pass(h,w,add.first,add.second))
@@ -78,56 +79,60 @@ int rec(const int h, const int w, const int c, int **p, const int times) {
     }
     
   } else if (times == 5) {
-     for (size_t j = 0; j < h; j++)
-       for (size_t k = 0; k < w; k++)
-	  tmp[j][k] = p[j][k];    
-
-     tmp[0][0] = c;
-     max++;
-     while (!q.empty()) {
-       q.push(add);
-       pair<int,int> t = q.front(); q.pop();	
-       //up
-       add = make_pair(t.first-1,t.second);
-       if (pass(h,w,add.first,add.second))
-	 if (fig == tmp[add.first][add.second]) {
-	 tmp[add.first][add.second] = c;
-	 q.push(add);
-	 max++;
-       }
-       //right
-       add = make_pair(t.first,t.second+1);
-       if (pass(h,w,add.first, add.second))
-	 if (fig == tmp[add.first][add.second+1]) {
-	   tmp[add.first][add.second] = c;
-	   q.push(add);
-	   max++;
-	 }
-       //down
-       add = make_pair(t.first+1,t.second);
-       if (pass(h,w,add.first,add.second))
+    for (size_t j = 0; j < h; j++)
+      for (size_t k = 0; k < w; k++)
+	tmp[j][k] = p[j][k];    
+    cout << "times::" << times << endl;
+    cout << c << endl;
+    
+    tmp[0][0] = c;
+    int fig = c;
+    max++;
+    q.push(start);
+    while (!q.empty()) {
+      
+      pair<int,int> t = q.front(); q.pop();
+      //up
+      add = make_pair(t.first-1,t.second);
+      if (pass(h,w,add.first,add.second))
 	 if (fig == tmp[add.first][add.second]) {
 	   tmp[add.first][add.second] = c;
 	   q.push(add);
 	   max++;
 	 }
-       //left
-       add = make_pair(t.first,t.second-1);
-       if (pass(h,w,add.first,add.second))
-	 if (fig == tmp[add.first][add.second]) {
-	   tmp[add.first][add.second] = c;
-	   q.push(add);
+      //right
+      add = make_pair(t.first,t.second+1);
+      if (pass(h,w,add.first, add.second))
+	if (fig == tmp[add.first][add.second+1]) {
+	  tmp[add.first][add.second] = c;
+	  q.push(add);
+	  max++;
+	}
+      //down
+      add = make_pair(t.first+1,t.second);
+      if (pass(h,w,add.first,add.second))
+	if (fig == tmp[add.first][add.second]) {
+	  tmp[add.first][add.second] = c;
+	  q.push(add);
+	  max++;
+	}
+      //left
+      add = make_pair(t.first,t.second-1);
+      if (pass(h,w,add.first,add.second))
+	if (fig == tmp[add.first][add.second]) {
+	  tmp[add.first][add.second] = c;
+	  q.push(add);
 	   max++;
-	 }
-     }
-     /*
-       for (size_t i = 0; i < h; i++) {
-       for (size_t j = 0; j < w; j++)
-       cout << tmp[i][j] << " ";
-       cout << endl;
-       }
-       cout << endl;
-     */
+	}
+    }
+    /*
+      for (size_t i = 0; i < h; i++) {
+      for (size_t j = 0; j < w; j++)
+      cout << tmp[i][j] << " ";
+      cout << endl;
+      }
+      cout << endl;
+    */
   }
   
   for (size_t i = 0; i < h; i++)
