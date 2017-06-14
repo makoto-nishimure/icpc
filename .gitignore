@@ -1,6 +1,10 @@
 #単純な実行ファイル(a.out)を無視
 *.out
 
-#.cpp~を無視
+# txtファイルを無視
+*.txt
+
+# backupを無視
 *.cpp~
 *.c~
+*.txt~
